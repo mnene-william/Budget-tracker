@@ -70,7 +70,7 @@ const message = document.getElementById("display message")
 const unorderedList = document.querySelector("#transactions-list");
 const balanceSpan = document.getElementById("balance");
 const incomeSpan = document.getElementById("income");
-const expenseSpan = document.getElementById("expense");
+const 
 
 let entries = JSON.parse(localStorage.getItem("entries")) || [];
 
@@ -141,7 +141,7 @@ document.getElementById("transactionInput").addEventListener("submit", function 
 
     entries.push(entry);
     localStorage.setItem("entries", JSON.stringify(entries));
-    renderTransactions();
+    updateTransactions();
     updateBalances();
 
 
