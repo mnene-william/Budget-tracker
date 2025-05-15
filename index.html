@@ -78,6 +78,10 @@ const unorderedList = document.querySelector("#transactions-list");
 const balanceSpan = document.getElementById("balance");
 const incomeSpan = document.getElementById("income");
 const  expenseSpan = document.getElementById("expense")
+const filterButtons = document.getElementById("filter-buttons");
+const allFilter = document.getElementById("all-filter");
+const incomeFilter = document.getElementById("income-filter");
+const expenseFilter = document.getElementById("expense-filter");
 
 let entries = JSON.parse(localStorage.getItem("entries")) || [];
 
@@ -122,6 +126,26 @@ function balancesUpdate() {
     expenseSpan.textContent = formatter.format(expense);
     balanceSpan.textContent = formatter.format(income - expense);
 }
+
+document.getElementById("filter-buttons").addEventListener("click", function (){
+    if(entry.type === income){
+        list.innerHTML = `
+            <div class="name">
+                <h4>${entry.name}</h4>
+                <p>${entry.date}</p>
+            </div>
+            <div class="amount ${entry.income}">
+                <span>${formatter.format(Number(entry.amount))}</span>
+            </div>
+            <div class="button">
+                <button onclick="deleteTransaction(${index})">Delete</button>
+            </div>
+        `;
+
+    }
+
+
+})
 
 
 document.getElementById("transactionInput").addEventListener("submit", function (e) {

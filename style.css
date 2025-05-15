@@ -94,3 +94,20 @@ ul li{
     font-weight: bold;
 
 }
+.filter-buttons{
+    display: flex;
+    margin: 10px;
+}
+#all-filter, #income-filter, #expense-filter{
+    margin: 10px;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: #4169e1;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    
+}
+#all-filter:hover, #income-filter:hover, #expense-filter:hover{
+    background-color: #0000B9;
+    opacity: 0.9;
+}
