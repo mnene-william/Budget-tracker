@@ -103,7 +103,11 @@ function filterTransactions(type) {
                 <span>${formatter.format(Number(entry.amount))}</span>
             </div>
             <div class="button">
-                <button onclick="deleteTransaction(${entries.indexOf(entry)})">Delete</button>
+                <button 
+                    onclick="deleteTransaction(${entries.indexOf(entry)})"
+                    style="background-color: red; color: white; font-family: Poppins, sans-serif;"
+                >Delete
+                </button>
             </div>
         `;
         unorderedList.appendChild(list);
@@ -132,7 +136,7 @@ function updateTransactions() {
                 <span>${formatter.format(Number(entry.amount))}</span>
             </div>
             <div class="button">
-                <button onclick="deleteTransaction(${index})">Delete</button>
+                <button style="color: red; font-family: Poppins, sans-serif;outline: none; border: none;" onclick="deleteTransaction(${index})">Delete</button>
             </div>
         `;
         unorderedList.appendChild(list);
