@@ -179,14 +179,24 @@ document.getElementById("transactionInput").addEventListener("submit", function 
     message.style.color = 'green';
 
     entries.push(entry);
+    setTimeout(() => {
+        message.textContent = "";
+    }, 2000);
     localStorage.setItem("entries", JSON.stringify(entries));
     updateTransactions();
-    updateTransactions();
     balancesUpdate();
+    document.getElementById("transactionInput").reset();
+    document.getElementById("displayMessage").reset();
+
+        
+
+
 });
+
 
 updateTransactions();
 balancesUpdate();
+
 </script>
    
 </body>
