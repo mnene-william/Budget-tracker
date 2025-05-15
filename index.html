@@ -12,15 +12,15 @@
         <header class="header1">
             <div>
                 <h5>Total Balance</h5>
-                <span id="balance">$0.00</span>
+                <span id="balance">Ksh0.00</span>
             </div>
             <div>
                 <h5>Income</h5>
-                <span id="income">$0.00</span>
+                <span id="income">Ksh0.00</span>
             </div>
             <div>
                 <h5>Expense</h5>
-                <span id="expense">$0.00</span>
+                <span id="expense">Ksh0.00</span>
             </div>
             
               
@@ -66,13 +66,12 @@
     </div>
 
 <script>
-const message = document.getElementById("display message")
+const message = document.getElementById("displayMessage")
 const unorderedList = document.querySelector("#transactions-list");
 const balanceSpan = document.getElementById("balance");
 const incomeSpan = document.getElementById("income");
-const 
 
-let entries = JSON.parse(localStorage.getItem("entries")) || [];
+const entries = JSON.parse(localStorage.getItem("entries"));
 
 const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -80,8 +79,8 @@ const formatter = new Intl.NumberFormat('en-US', {
 });
 
 function updateTransactions() {
-    unorderedList.innerHTML = "";
-    entries.forEach((entry, idx) => {
+
+    entries.forEach((entry, index) => {
         const list = document.createElement("li");
         list.innerHTML = `
             <div class="name">
@@ -92,7 +91,7 @@ function updateTransactions() {
                 <span>${formatter.format(Number(entry.amount))}</span>
             </div>
             <div class="button">
-                <button onclick="deleteTransaction(${idx})">Delete</button>
+                <button onclick="deleteTransaction(${index})">Delete</button>
             </div>
         `;
         unorderedList.appendChild(list);
@@ -116,15 +115,10 @@ function balancesUpdate() {
     balanceSpan.textContent = formatter.format(income - expense);
 }
 
-window.deleteTransaction = function(idx) {
-    entries.splice(idx, 1);
-    localStorage.setItem("entries", JSON.stringify(entries));
-    updateTransactions();
-    balancesUpdate();
-};
 
-document.getElementById("transactionInput").addEventListener("submit", function (e) {
-    e.preventDefault();
+
+document.getElementById("transactionInput").addEventListener("submit", function () {
+
     const entry = {
         name: document.getElementById("name").value,
         date: document.getElementById("date").value,
@@ -142,13 +136,10 @@ document.getElementById("transactionInput").addEventListener("submit", function 
     entries.push(entry);
     localStorage.setItem("entries", JSON.stringify(entries));
     updateTransactions();
-    updateBalances();
+    balancesUpdate();
 
 
-    document.getElementById("name").value = "";
-    document.getElementById("date").value = "";
-    document.getElementById("amount").value = "";
-    document.getElementById("type").value = "income";
+    
 });
 
 updateTransactions();
