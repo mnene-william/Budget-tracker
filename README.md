@@ -3,6 +3,7 @@ budget-tracker
 I made a budget-tracker that enables users to input both expense and income transactions. The balance is displayed and updated dynamically using JavaScript.
 
  As I made this project, I learnt/improved in  the use of:
+ Relative units such as rem in css to improve the responsiveness of the webpage,
   Formatters such as the numberFormatter which I used to set the currency to Kenyan Shilllings,
   LocalStarage to store user input,
   Templete literals,
