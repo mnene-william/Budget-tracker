@@ -22,39 +22,31 @@
                 <h5>Expense</h5>
                 <span id="expense">Ksh0.00</span>
             </div>
-            
-              
-           
         </header>
         <h2>Add Transaction</h2>
         <form id="transactionInput">
             <div>
                 <label for="name">Name:</label>
                 <input type="name" id="name" required>  
-                 
             </div>
             <div>
-                 <label for="date">Date:</label>
+                <label for="date">Date:</label>
                 <input type="date" id="date" required> 
             </div>
             <div>
-                 <label for="amount">Amount:</label>
-                 <input type="number" id="amount" required>
+                <label for="amount">Amount:</label>
+                <input type="number" id="amount" required>
             </div>
             <div>
                 <label for="type">Type:</label>
-            <select id="type" required>
-                <option value="income">Income</option>
-                <option value="expense">Expense</option>
-            </select>
+                <select id="type" required>
+                    <option value="income">Income</option>
+                    <option value="expense">Expense</option>
+                </select>
             </div>
-
-            <button  type="submit" id="add-button">Add Transaction</button>
+            <button type="submit" id="add-button">Add Transaction</button>
             <p id="displayMessage"></p>
         </form>
-
-       
-            
         <div class="transactions-section">
             <h2>Transactions</h2>
             <p>Filter by:</p>
@@ -63,14 +55,18 @@
                 <button id="income-filter">Income</button>
                 <button id="expense-filter">Expense</button>
             </div>
-           
             <ul id="transactions-list">
-
             </ul>
         </div>
-
-       
     </div>
+    <script>
+    function deleteTransaction(index) {
+        entries.splice(index, 1);
+        localStorage.setItem("entries", JSON.stringify(entries));
+        updateTransactions();
+        balancesUpdate();
+    }
+    </script>
 
 <script>
 const message = document.getElementById("displayMessage");
@@ -88,7 +84,41 @@ const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'KES',
 });
+function filterTransactions(type) {
+    unorderedList.innerHTML = "";
+    let filteredEntries = entries;
+    if (type === "income") {
+        filteredEntries = entries.filter(entry => entry.type === "income");
+    } else if (type === "expense") {
+        filteredEntries = entries.filter(entry => entry.type === "expense");
+    }
+    filteredEntries.forEach((entry, index) => {
+        const list = document.createElement("li");
+        list.innerHTML = `
+            <div class="name">
+                <h4>${entry.name}</h4>
+                <p>${entry.date}</p>
+            </div>
+            <div class="amount ${entry.type}">
+                <span>${formatter.format(Number(entry.amount))}</span>
+            </div>
+            <div class="button">
+                <button onclick="deleteTransaction(${entries.indexOf(entry)})">Delete</button>
+            </div>
+        `;
+        unorderedList.appendChild(list);
+    });
+}
 
+allFilter.addEventListener("click", () => {
+    updateTransactions();
+});
+incomeFilter.addEventListener("click", () => {
+    filterTransactions("income");
+});
+expenseFilter.addEventListener("click", () => {
+    filterTransactions("expense");
+});
 function updateTransactions() {
     unorderedList.innerHTML = "";
     entries.forEach((entry, index) => {
