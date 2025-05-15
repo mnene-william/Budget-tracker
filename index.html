@@ -57,6 +57,13 @@
             
         <div class="transactions-section">
             <h2>Transactions</h2>
+            <p>Filter by:</p>
+            <div class="filter-buttons">
+                <button id="all-filter">All</button>
+                <button id="income-filter">Income</button>
+                <button id="expense-filter">Expense</button>
+            </div>
+           
             <ul id="transactions-list">
 
             </ul>
@@ -66,12 +73,13 @@
     </div>
 
 <script>
-const message = document.getElementById("displayMessage")
+const message = document.getElementById("display message")
 const unorderedList = document.querySelector("#transactions-list");
 const balanceSpan = document.getElementById("balance");
 const incomeSpan = document.getElementById("income");
+const  expenseSpan = document.getElementById("expense")
 
-const entries = JSON.parse(localStorage.getItem("entries"));
+let entries = JSON.parse(localStorage.getItem("entries")) || [];
 
 const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -79,7 +87,7 @@ const formatter = new Intl.NumberFormat('en-US', {
 });
 
 function updateTransactions() {
-
+    unorderedList.innerHTML = "";
     entries.forEach((entry, index) => {
         const list = document.createElement("li");
         list.innerHTML = `
@@ -116,9 +124,8 @@ function balancesUpdate() {
 }
 
 
-
-document.getElementById("transactionInput").addEventListener("submit", function () {
-
+document.getElementById("transactionInput").addEventListener("submit", function (e) {
+    e.preventDefault();
     const entry = {
         name: document.getElementById("name").value,
         date: document.getElementById("date").value,
@@ -136,7 +143,7 @@ document.getElementById("transactionInput").addEventListener("submit", function 
     entries.push(entry);
     localStorage.setItem("entries", JSON.stringify(entries));
     updateTransactions();
-    balancesUpdate();
+    updateBalances();
 
 
     
