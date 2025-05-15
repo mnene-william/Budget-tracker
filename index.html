@@ -73,12 +73,11 @@
     </div>
 
 <script>
-const message = document.getElementById("display message")
+const message = document.getElementById("displayMessage");
 const unorderedList = document.querySelector("#transactions-list");
 const balanceSpan = document.getElementById("balance");
 const incomeSpan = document.getElementById("income");
-const  expenseSpan = document.getElementById("expense")
-const filterButtons = document.getElementById("filter-buttons");
+const expenseSpan = document.getElementById("expense");
 const allFilter = document.getElementById("all-filter");
 const incomeFilter = document.getElementById("income-filter");
 const expenseFilter = document.getElementById("expense-filter");
@@ -87,7 +86,7 @@ let entries = JSON.parse(localStorage.getItem("entries")) || [];
 
 const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'KSH',
+    currency: 'KES',
 });
 
 function updateTransactions() {
@@ -127,13 +126,6 @@ function balancesUpdate() {
     balanceSpan.textContent = formatter.format(income - expense);
 }
 
-document.getElementById("filter-buttons").addEventListener("click", function (){
-    if(entry.type === income){
-        en
-    }
-
-
-})
 
 
 document.getElementById("transactionInput").addEventListener("submit", function (e) {
@@ -155,16 +147,13 @@ document.getElementById("transactionInput").addEventListener("submit", function 
     entries.push(entry);
     localStorage.setItem("entries", JSON.stringify(entries));
     updateTransactions();
-    updateBalances();
-
-
-    
+    updateTransactions();
+    balancesUpdate();
 });
 
 updateTransactions();
 balancesUpdate();
 </script>
-
    
 </body>
 </html>
